@@ -3,7 +3,8 @@ import { ref } from 'vue';
 import Plat from './components/Plat.vue';
 import Ingredient from './components/Ingredient.vue';
 import Commande from './components/Commande.vue';
-const currentSection = ref('plats');// Par défaut, on affiche "plats"
+import Dashboard from './components/Dashboard.vue';
+const currentSection = ref('dashboards');// Par défaut, on affiche "plats"
 </script>
 
 <template>
@@ -12,6 +13,7 @@ const currentSection = ref('plats');// Par défaut, on affiche "plats"
     <nav class="sidebar">
       <ul>
         <li><h1><b>M-Esakafo</b></h1></li>
+        <li><a href="" @click.prevent="currentSection = 'dashboards'">Dashboard</a></li>
         <li><a href="" @click.prevent="currentSection = 'plats'">Plats</a></li>
         <li><a href="" @click.prevent="currentSection = 'commande'">Commandes</a></li>
         <li><a href="" @click.prevent="currentSection = 'ingredients'">Ingrédients</a></li>
@@ -20,6 +22,7 @@ const currentSection = ref('plats');// Par défaut, on affiche "plats"
 
     <!-- Contenu principal -->
     <main>
+      <Dashboard v-if="currentSection === 'dashboards'" />
       <Plat v-if="currentSection === 'plats'" />
       <Ingredient v-if="currentSection === 'ingredients'" />
       <Commande v-if="currentSection === 'commande'" />
