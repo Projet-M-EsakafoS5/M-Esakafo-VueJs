@@ -3,7 +3,6 @@ import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import vueDevTools from 'vite-plugin-vue-devtools'
 
-// https://vite.dev/config/
 export default defineConfig({
   plugins: [
     vue(),
@@ -17,7 +16,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: process.env.VITE_API_URL || 'https://m-esakafo-1.onrender.com',
+        target: process.env.VITE_API_URL || 'https://cors-anywhere.herokuapp.com/https://m-esakafo-1.onrender.com',
         changeOrigin: true,
         secure: false,
         rewrite: (path) => path
