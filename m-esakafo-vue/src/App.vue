@@ -1,9 +1,8 @@
 <script setup>
 import { ref } from 'vue';
-import PlatsList from './components/PlatsList.vue';
-// import IngredientsList from './components/IngredientsList.vue';
-// import CommandeList from './components/CommandeList.vue';
-
+import Plat from './components/Plat.vue';
+import Ingredient from './components/Ingredient.vue';
+import Commande from './components/Commande.vue';
 const currentSection = ref('plats');// Par défaut, on affiche "plats"
 </script>
 
@@ -13,21 +12,22 @@ const currentSection = ref('plats');// Par défaut, on affiche "plats"
     <nav class="sidebar">
       <ul>
         <li><h1><b>M-Esakafo</b></h1></li>
-        <li><a href="#" @click="currentSection = 'plats'">Liste des plats</a></li>
-        <li><a href="#" @click="currentSection = 'ingredients'">Ingrédients</a></li>
-        <li><a href="#" @click="currentSection = 'commande'">Commande</a></li>
+        <li><a href="" @click.prevent="currentSection = 'plats'">Plats</a></li>
+        <!-- <li><a href="" @click.prevent="currentSection = 'commande'">Commande</a></li> -->
+        <li><a href="" @click.prevent="currentSection = 'ingredients'">Ingrédients</a></li>
       </ul>
     </nav>
 
     <!-- Contenu principal -->
     <main>
       <!-- Affichage dynamique des composants en fonction de la section active -->
-      <PlatsList v-if="currentSection === 'plats'" />
-      <IngredientsList v-if="currentSection === 'ingredients'" />
-      <CommandeList v-if="currentSection === 'commande'" />
+      <Plat v-if="currentSection === 'plats'" />
+      <Ingredient v-if="currentSection === 'ingredients'" />
+      <!-- <Commande v-if="currentSection === 'commande'" /> -->
     </main>
   </div>
 </template>
+
 
 <style scoped>
 /* Corps de la page */
