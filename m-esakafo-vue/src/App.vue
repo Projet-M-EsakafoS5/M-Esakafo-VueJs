@@ -13,17 +13,16 @@ const currentSection = ref('plats');// Par défaut, on affiche "plats"
       <ul>
         <li><h1><b>M-Esakafo</b></h1></li>
         <li><a href="" @click.prevent="currentSection = 'plats'">Plats</a></li>
-        <!-- <li><a href="" @click.prevent="currentSection = 'commande'">Commande</a></li> -->
+        <li><a href="" @click.prevent="currentSection = 'commande'">Commandes</a></li>
         <li><a href="" @click.prevent="currentSection = 'ingredients'">Ingrédients</a></li>
       </ul>
     </nav>
 
     <!-- Contenu principal -->
     <main>
-      <!-- Affichage dynamique des composants en fonction de la section active -->
       <Plat v-if="currentSection === 'plats'" />
       <Ingredient v-if="currentSection === 'ingredients'" />
-      <!-- <Commande v-if="currentSection === 'commande'" /> -->
+      <Commande v-if="currentSection === 'commande'" />
     </main>
   </div>
 </template>
