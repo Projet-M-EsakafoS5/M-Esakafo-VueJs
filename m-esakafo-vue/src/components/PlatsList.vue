@@ -60,7 +60,7 @@ export default {
 </script>
 
 <template>
-  <div>
+  <div class="plats-container">
     <div v-if="error" class="error">{{ error }}</div>
     <div v-if="isLoading" class="loading">Chargement...</div>
     <table v-else>
@@ -78,7 +78,7 @@ export default {
           <td>{{ plat.prix }}</td>
           <td>{{ plat.tempsCuisson }}</td>
           <td>
-            <img v-bind:src="`/path/to/images/${plat.sprite}`" :alt="plat.nom" width="50" height="50" />
+            <img v-bind:src="`/src/img/${plat.sprite}`" width="50" height="50" />
           </td>
         </tr>
       </tbody>
@@ -87,26 +87,68 @@ export default {
 </template>
 
 <style scoped>
-.error {
-  color: red;
-  font-weight: bold;
+
+/* Assurez-vous que le body et html prennent toute la hauteur */
+html, body {
+  height: 100%;
+  height: 100%;
+  width: 100%;
+  padding: 0;
 }
-.loading {
-  font-size: 1.5em;
-  color: green;
+
+/* Assurez-vous que le conteneur principal occupe toute la hauteur de la page */
+.plats-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%; /* Prend toute la hauteur disponible */
+  width: 100%; /* Prend toute la hauteur disponible */
+  margin: 0 auto;
+  background-color: #ffffff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  padding: 20px;
 }
+
+/* Rendre la table plus fluide et pleine hauteur */
 table {
   width: 100%;
   border-collapse: collapse;
+  margin-top: 20px;
+  height: 100%; /* Assurez-vous que la table prend la hauteur restante */
 }
+
 table th, table td {
-  border: 1px solid #ddd;
-  padding: 8px;
+  padding: 12px;
   text-align: left;
+  border: 1px solid #ddd;
+  color:#6a4c9c;
+  border-radius: 5px;
 }
+
+table th {
+  background-color: #6a4c9c; /* Violet */
+  color: white;
+  font-weight: bold;
+}
+
+table tr:nth-child(even) {
+  background-color: #f4f4f4;
+}
+
+table tr:hover {
+  background-color: #f2e3f7; /* Violet très clair au survol */
+}
+
 img {
   width: 50px;
   height: 50px;
   object-fit: cover;
+  border-radius: 5px;
 }
+
+.error, .loading {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
 </style>

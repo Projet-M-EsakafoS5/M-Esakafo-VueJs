@@ -1,21 +1,96 @@
 <script setup>
-import PlatsList from './components/PlatsList.vue'
+import { ref } from 'vue';
+import PlatsList from './components/PlatsList.vue';
+// import IngredientsList from './components/IngredientsList.vue';
+// import CommandeList from './components/CommandeList.vue';
+
+const currentSection = ref('plats');// Par défaut, on affiche "plats"
 </script>
 
 <template>
-  <header>
-    <h1>M-eSakafo</h1>
+  <div class="content">
+    <!-- Barre de navigation à gauche -->
+    <nav class="sidebar">
+      <ul>
+        <li><h1><b>M-Esakafo</b></h1></li>
+        <li><a href="#" @click="currentSection = 'plats'">Liste des plats</a></li>
+        <li><a href="#" @click="currentSection = 'ingredients'">Ingrédients</a></li>
+        <li><a href="#" @click="currentSection = 'commande'">Commande</a></li>
+      </ul>
+    </nav>
 
-
-  </header>
-
-  <main>
-    <PlatsList />
-  </main>
+    <!-- Contenu principal -->
+    <main>
+      <!-- Affichage dynamique des composants en fonction de la section active -->
+      <PlatsList v-if="currentSection === 'plats'" />
+      <IngredientsList v-if="currentSection === 'ingredients'" />
+      <CommandeList v-if="currentSection === 'commande'" />
+    </main>
+  </div>
 </template>
 
-<script>
-export default {
-  name: 'App',
-};
-</script>
+<style scoped>
+/* Corps de la page */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}
+
+/* Contenu principal avec sidebar */
+.content {
+  display: flex;
+  height: 100vh; /* Prendre toute la hauteur de la fenêtre */
+}
+
+/* Sidebar fixe */
+.sidebar {
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 250px;
+  background-color: #6a4c9c; /* Couleur de fond violet */
+  padding: 20px;
+  color: white;
+  z-index: 1000; /* Assurez-vous que la sidebar reste au-dessus */
+}
+
+.sidebar ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.sidebar ul li {
+  margin-bottom: 20px;
+}
+
+.sidebar ul li a {
+  text-decoration: none;
+  color: white;
+  font-size: 18px;
+}
+
+.sidebar ul li a:hover {
+  background-color: #6a4c9c;
+  color: #f39c12; /* Orange au survol */
+}
+
+
+main {
+  margin-left: 90px; /* Décalage pour que le contenu principal ne chevauche pas la sidebar */
+  width: 100%;
+  padding: 20px;
+  background-color: #fff;
+  height: 100vh;
+}
+
+/* Titres */
+header h1 {
+  text-align: center;
+  background-color: #6a4c9c;
+  color: white;
+  padding: 10px;
+  margin: 0;
+}
+</style>
