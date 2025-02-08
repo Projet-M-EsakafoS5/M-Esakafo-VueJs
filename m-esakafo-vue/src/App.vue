@@ -5,6 +5,7 @@ import Ingredient from './components/Ingredient.vue';
 import Commande from './components/Commande.vue';
 import Dashboard from './components/Dashboard.vue';
 import Mouvement from './components/Mouvement.vue';
+import Recette from './components/Recette.vue';
 const currentSection = ref('dashboards');// Par défaut, on affiche "plats"
 </script>
 
@@ -12,8 +13,8 @@ const currentSection = ref('dashboards');// Par défaut, on affiche "plats"
   <div class="content">
     <!-- Barre de navigation à gauche -->
     <nav class="sidebar">
+      <img :src="`src/img/1Logo.png`" alt="Plat" class="logo" />
       <ul>
-        <li><h1><b>M-Esakafo</b></h1></li>
         <li><a href="" @click.prevent="currentSection = 'dashboards'">Dashboard</a></li>
         <li><a href="" @click.prevent="currentSection = 'plats'">Plats</a></li>
         <li><a href="" @click.prevent="currentSection = 'commande'">Commandes</a></li>
@@ -32,13 +33,14 @@ const currentSection = ref('dashboards');// Par défaut, on affiche "plats"
       <Commande v-if="currentSection === 'commande'" />
 
       <Mouvement v-if="currentSection === 'mouvements'" />
+      <Recette v-if="currentSection === 'recettes'" />
 
     </main>
   </div>
 </template>
 
 
-<!-- <style scoped>
+<style scoped>
 /* Corps de la page */
 body {
   margin: 0;
@@ -63,6 +65,12 @@ body {
   padding: 20px;
   color: white;
   z-index: 1000; /* Assurez-vous que la sidebar reste au-dessus */
+}
+
+.logo{
+  width: 100px;
+  margin-left: 45px;
+  padding-bottom: 20px;
 }
 
 .sidebar ul {
@@ -102,4 +110,4 @@ header h1 {
   padding: 10px;
   margin: 0;
 }
-</style> -->
+</style>

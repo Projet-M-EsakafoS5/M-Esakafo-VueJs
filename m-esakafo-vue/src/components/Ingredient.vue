@@ -60,8 +60,12 @@ export default {
    
     <div v-else class="ingredients-grid">
       <div v-for="ingredient in ingredients" :key="ingredient.id" class="ingredient-card">
-        <img :src="`/src/img/${ingredient.sprite}`" alt="Image de l'ingrédient" class="ingredient-image" />
-        <div class="ingredient-description">{{ ingredient.nom }} ({{ ingredient.unite.nom }})</div>
+        <img :src="`/src/img/riz.jpg`" alt="Image de l'ingrédient" class="ingredient-image" />
+        <!-- <img :src="`/src/img/${ingredient.sprite}`" alt="Image de l'ingrédient" class="ingredient-image" /> -->
+        <div class="ingredient-description">
+          <p><strong>{{ ingredient.nom }}</strong></p>
+          <p><strong>Unité : </strong>{{ ingredient.unite.nom }}</p>
+        </div>
       </div>
     </div>
   </div>
@@ -73,10 +77,11 @@ h1{
 }
 .ingredients-container {
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
+  gap: 15px;
   justify-content: center;
-  align-items: center;
-  padding: 20px;
+  margin-top: 20px;
+
 }
 
 .ingredients-grid {
@@ -97,8 +102,7 @@ h1{
 }
 
 .ingredient-image {
-  width: 100%;
-  height: 200px;
+  width: 90%;
   object-fit: cover;
   border-radius: 10px;
 }

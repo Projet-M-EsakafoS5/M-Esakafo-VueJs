@@ -56,7 +56,6 @@ export default {
   },
 };
 
-
 </script>
 
 <template>  
@@ -79,27 +78,11 @@ export default {
             <td>{{ mouvement.ingredient }}</td>  
             <td>{{ mouvement.date }}</td>  
             <td>{{ mouvement.entre || 0 }}</td>  
-            <td>{{ mouvement.sortie || 0 }}</td>  
+            <td>{{ mouvement.sortie || 0 }}</td>
+            <td><router-link :to="`/edit-mouv/${mouvement.id}`" class="btn btn-outline-success mx-1">Edit</router-link></td>
           </tr>  
         </tbody>  
       </table>  
     </div>  
   </template>  
   
-  
-  <style scoped>  
-  table {  
-    width: 100%;  
-    border-collapse: collapse;  
-  }  
-  
-  th, td {  
-    border: 1px solid #ddd;  
-    padding: 8px;  
-    text-align: left;  
-  }  
-  
-  th {  
-    background-color: #f2f2f2;  
-  }  
-  </style>

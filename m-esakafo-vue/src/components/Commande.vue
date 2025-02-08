@@ -104,10 +104,10 @@ export default {
     <h1>Commandes en cours</h1>
     <div class="commandes-container">
       <div class="commande-card" v-for="commande in commandesEnCours" :key="commande.id">
-        <h3>{{ commande.plat.nom }}</h3>
-        <p><b>Quantité:</b> {{ commande.quantite }}</p>
-        <p><b>Prix:</b> {{ commande.plat.prix }} €</p>
         <img :src="`/src/img/${commande.plat.sprite}`" alt="Plat" />
+        <p class="nom">{{ commande.plat.nom }}</p>
+        <p class="qtt"><b>Quantité:</b> {{ commande.quantite }}</p>
+        <p class="prix"><b>Prix:</b> {{ commande.plat.prix }} €</p>
       </div>
     </div>
 
@@ -115,10 +115,10 @@ export default {
     <h1>Commandes Terminées</h1>
     <div class="commandes-container">
       <div class="commande-card" v-for="commande in commandesTerminees" :key="commande.id">
-        <h3>{{ commande.plat.nom }}</h3>
-        <p><b>Quantité:</b> {{ commande.quantite }}</p>
-        <p><b>Prix:</b> {{ commande.plat.prix }} €</p>
         <img :src="`/src/img/${commande.plat.sprite}`" alt="Plat" />
+        <p class="nom">{{ commande.plat.nom }}</p>
+        <p class="qtt"><b>Quantité:</b> {{ commande.quantite }}</p>
+        <p class="prix"><b>Prix:</b> {{ commande.plat.prix }} €</p>
       </div>
     </div>
   </div>
@@ -133,7 +133,6 @@ export default {
 
 h1, h2 {
   color: #6a4c9c;
-  text-align: center;
 }
 
 .error {
@@ -146,34 +145,7 @@ h1, h2 {
   font-weight: bold;
 }
 
-/* TABLEAU */
-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 20px;
-}
 
-table th, table td {
-  padding: 10px;
-  border: 1px solid #ddd;
-  text-align: left;
-  color: #6a4c9c;
-}
-
-table th {
-  background-color: #6a4c9c;
-  color: white;
-}
-
-table tr:nth-child(even) {
-  background-color: #f4f4f4;
-  color: #6a4c9c;
-}
-
-table tr:hover {
-  background-color: #e3d5f7;
-  color: #6a4c9c;
-}
 
 /* CARDS */
 .commandes-container {
@@ -182,25 +154,43 @@ table tr:hover {
   gap: 15px;
   justify-content: center;
   margin-top: 20px;
+  height: 250px;
 }
 
 .commande-card {
   background: white;
-  padding: 15px;
-  color: #6a4c9c;
+    padding: 15px;
+    /* color: #6a4c9c; */
+    background-color: #702082;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    height: 250px;
+    width: 200px;
+    border: 2px solid #6a4c9c;
+    align-items: center;
+    text-align: center;
+  }
+  
+  .commande-card img {
+    width: 180px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 5px;
+    margin:-6px
+  }
 
-  border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  width: 220px;
-  text-align: center;
-  border: 2px solid #6a4c9c;
+.nom{
+    font-size: 15px;
+    font-weight: bold;
+    color: #ffffff;
+  }
+
+.qtt{
+  color: #ffffff;
 }
 
-.commande-card img {
-  width: 80px;
-  height: 80px;
-  object-fit: cover;
-  border-radius: 5px;
-  margin-top: 10px;
+.prix{
+  color: #ff8200;
 }
+
 </style>
