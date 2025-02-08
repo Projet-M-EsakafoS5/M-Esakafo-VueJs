@@ -6,8 +6,11 @@ import Commande from './components/Commande.vue';
 import Dashboard from './components/Dashboard.vue';
 import Mouvement from './components/Mouvement.vue';
 import Recette from './components/Recette.vue';
+import Login from './components/Login.vue';
+
 const currentSection = ref('dashboards');// Par défaut, on affiche "plats"
 </script>
+
 
 <template>
   <div class="content">
@@ -22,6 +25,7 @@ const currentSection = ref('dashboards');// Par défaut, on affiche "plats"
 
         <li><a href="" @click.prevent="currentSection = 'mouvements'">Liste mouvements</a></li>
         <li><a href="" @click.prevent="currentSection = 'recettes'">Liste recettes</a></li>
+        <li><a href="" @click.prevent="currentSection = 'login'">Login BackOffice</a></li>
       </ul>
     </nav>
 
@@ -34,6 +38,7 @@ const currentSection = ref('dashboards');// Par défaut, on affiche "plats"
 
       <Mouvement v-if="currentSection === 'mouvements'" />
       <Recette v-if="currentSection === 'recettes'" />
+      <Login v-if="currentSection === 'login'" />
 
     </main>
   </div>
