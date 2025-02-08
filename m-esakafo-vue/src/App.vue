@@ -8,7 +8,7 @@ import Mouvement from './components/Mouvement.vue';
 import Recette from './components/Recette.vue';
 import Login from './components/Login.vue';
 
-const currentSection = ref('dashboards');// Par défaut, on affiche "plats"
+const currentSection = ref('dashboards'); 
 </script>
 
 
