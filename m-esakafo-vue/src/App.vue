@@ -16,7 +16,7 @@ const currentSection = ref('dashboards');// Par défaut, on affiche "plats"
   <div class="content">
     <!-- Barre de navigation à gauche -->
     <nav class="sidebar">
-      <img :src="`src/img/1Logo.png`" alt="Plat" class="logo" />
+      <img :src="`./src/img/1Logo.png`" alt="Plat" class="logo" />
       <ul>
         <li><a href="" @click.prevent="currentSection = 'dashboards'">Dashboard</a></li>
         <li><a href="" @click.prevent="currentSection = 'plats'">Plats</a></li>
