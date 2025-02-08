@@ -79,7 +79,7 @@ export default {
           <td>{{ plat.prix }}</td>
           <td>{{ plat.tempsCuisson }}</td>
           <td>
-            <img v-bind:src="`/src/img/${plat.sprite}`" width="50" height="50" />
+            <img v-bind:src="`src/img/${plat.sprite}`" width="50" height="50" />
           </td>
         </tr>
       </tbody>
