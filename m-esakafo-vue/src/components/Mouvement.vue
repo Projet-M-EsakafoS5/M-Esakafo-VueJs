@@ -5,59 +5,48 @@ import axios from 'axios';
 export default {
   name: 'Mouvements',
   setup() {
-    const mouvements = ref([]);  // Tableau pour stocker les mouvements extraits
-    const quantities = ref({});   // Objet pour stocker la quantité restante par ingrédient
-    const error = ref(null);      // Pour gérer les erreurs
-    const isLoading = ref(false); // Pour gérer l'état de chargement
+    const mouvements = ref([]); 
+    const stockEntree = ref({}); 
+    const error = ref(null);
+    const isLoading = ref(false);
 
-    // Récupérer les mouvements et calculer les quantités restantes
     const fetchMouvements = async () => {
       isLoading.value = true;
       try {
-        const url = `${import.meta.env.VITE_API_URL}/api/mouvements`;  
-        const response = await axios.get(url, { 
-          headers: {
-            'Authorization': `Bearer ${import.meta.env.VITE_API_KEY}`,
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-          }
-        });
-
-        if (response.status !== 200) {
+        const response = await axios.get('https://m-esakafo-1.onrender.com/api/mouvements/mouvement_ingredient');
+        if (response.status === 200) {
+          mouvements.value = response.data;
+        } else {
           throw new Error(`Erreur ${response.status}: ${response.statusText}`);
         }
-
-        mouvements.value = response.data.data;
-        calculateQuantities();  // Calculer les quantités restantes
-        isLoading.value = false;
       } catch (err) {
         error.value = err.message || 'Une erreur est survenue';
+      } finally {
         isLoading.value = false;
       }
     };
 
-    // Calculer la quantité restante par ingrédient
-    const calculateQuantities = () => {
-      const result = {};
-      mouvements.value.forEach(mouvement => {
-        if (mouvement.ingredient) {
-          if (!result[mouvement.ingredient]) {
-            result[mouvement.ingredient] = 0;
-          }
-          if (mouvement.sortie) {
-            result[mouvement.ingredient] -= mouvement.sortie;
-          }
-          if (mouvement.entre) {
-            result[mouvement.ingredient] += mouvement.entre;
-          }
-        }
-      });
-      quantities.value = result;
-    };
+    // Fonction pour enregistrer une nouvelle entrée de stock
+    const ajouterEntreeStock = async (id) => {
+      if (!stockEntree.value[id] || stockEntree.value[id] <= 0) {
+        alert("Veuillez entrer une quantité valide");
+        return;
+      }
+      try {
+        const dateAujourdHui = new Date();
+        const dateFormatee = dateAujourdHui.toLocaleDateString('fr-CA'); 
+        await axios.post('https://m-esakafo-1.onrender.com/api/mouvements', {
+          ingredientId: id,
+          entree: stockEntree.value[id],
+          dateMouvement: dateFormatee
+        });
+        alert("Stock mis à jour avec succès");
+        stockEntree.value[id] = 0; 
+        fetchMouvements(); 
+      } catch (err) {
+        alert("Erreur lors de l'ajout du stock");
+      }
 
-    // Modifier la quantité d'un ingrédient
-    const updateQuantity = (ingredient, newQuantity) => {
-      quantities.value[ingredient] = newQuantity;
     };
 
     onMounted(() => {
@@ -66,45 +55,110 @@ export default {
 
     return {
       mouvements,
-      quantities,
+      stockEntree,
       error,
       isLoading,
-      updateQuantity,
+      ajouterEntreeStock,
     };
   },
 };
+
 </script>
 
 <template>
   <div>
-    <h2>Tableau des Mouvements</h2>
-    <table>
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Ingredient</th>
-          <th>Date mouvement</th>
-          <th>Entree</th>
-          <th>Sortie</th>
-          <th>Quantité restante</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="mouvement in mouvements" :key="mouvement.id">
-          <td>{{ mouvement.id }}</td>
-          <td>{{ mouvement.ingredient }}</td>
-          <td>{{ mouvement.date }}</td>
-          <td>{{ mouvement.entre || 0 }}</td>
-          <td>{{ mouvement.sortie || 0 }}</td>
-          <td>
-            <div>
-              <img :src="`/path/to/sprites/${mouvement.ingredient}.png`" alt="Sprite" />
-              <input type="number" v-model="quantities[mouvement.ingredient]" 
-                     @change="updateQuantity(mouvement.ingredient, quantities[mouvement.ingredient])" />
-            </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <h1>Gestion des Mouvements des ingrédients</h1>
+    <div v-if="isLoading">Chargement...</div>
+    <div v-else-if="error">{{ error }}</div>
+    <div v-else>
+      <div v-for="mouvement in mouvements" :key="mouvement.id" class="ingredient-card">
+        <img :src="`/img/${mouvement.sprite}`" :alt="mouvement.nom" class="ingredient-image" />
+        <div class="ingredient-info">
+          <h3>{{ mouvement.nom }}</h3>
+          <p>Entrées: {{ mouvement.sommeEntre }}</p>
+          <p>Sorties: {{ mouvement.sommeSortie }}</p>
+          <p>Stock restant: {{ mouvement.resteEnStock }}</p>
+          <input type="number" v-model="stockEntree[mouvement.id]" placeholder="Nouvelle entrée" min="1" />
+          <button @click="ajouterEntreeStock(mouvement.id)">Ajouter</button>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
+
+<style scoped>
+h1 {
+  color: #640142;
+  font-weight: bold;
+  text-align: center;
+}
+.ingredient-card {
+  display: flex;
+  align-items: center;
+  border: 1px solid #ddd;
+  padding: 15px;
+  margin-bottom: 15px;
+  border-radius: 10px;
+  background: #fff;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease-in-out;
+}
+
+.ingredient-card:hover {
+  transform: scale(1.02);
+}
+
+.ingredient-image {
+  width: 150px;
+  height: 150px;
+  border-radius: 10px;
+  object-fit: cover;
+  margin-right: 20px;
+  border: 3px solid #ddd;
+}
+
+.ingredient-info {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+h3 {
+  color: #333;
+  font-size: 22px;
+  margin-bottom: 10px;
+}
+
+p {
+  color: #555;
+  font-size: 16px;
+  margin: 3px 0;
+}
+
+input {
+  margin-top: 8px;
+  padding: 8px;
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+button {
+  margin-top: 10px;
+  background: #640142;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s ease-in-out;
+}
+
+button:hover {
+  background: #8a024a;
+}
+
+</style>
