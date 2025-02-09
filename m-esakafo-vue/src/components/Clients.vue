@@ -87,15 +87,11 @@ body {
   padding: 20px;
 }
 
-h1 {
+h1, h2 {
+  font-weight: bold;
+  align-items: center;
   color: #640142;
-  font-size: 2.5rem;
-  text-align: center;
-  margin-bottom: 30px;
-  font-weight: 600;
-  letter-spacing: 1px;
 }
-
 .loading-message,
 .error-message {
   text-align: center;

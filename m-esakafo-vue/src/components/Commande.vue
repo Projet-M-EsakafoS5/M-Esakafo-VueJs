@@ -120,7 +120,7 @@ export default {
         <img :src="`/img/${commande.plat.sprite}`" alt="Plat" />
         <p class="nom">{{ commande.plat.nom }}</p>
         <p class="qtt"><b>Quantité:</b> {{ commande.quantite }}</p>
-        <p class="prix"><b>Prix:</b> {{ commande.plat.prix }} €</p>
+        <p class="prix"><b>Prix:</b> {{ commande.plat.prix }} MGA</p>
       </div>
     </div>
   </div>
@@ -201,7 +201,8 @@ h1, h2 {
 }
 
 .prix{
-  color: #ff8200;
+  font-weight: bold;
+  color: #f9f0e5;
 }
 
 </style>
