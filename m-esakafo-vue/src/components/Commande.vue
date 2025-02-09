@@ -30,7 +30,7 @@ export default {
         isLoading.value = false;
       }
     };
-
+    
     // Récupération des commandes en attente
     const fetchCommandesEnCours = async () => {
     try {
