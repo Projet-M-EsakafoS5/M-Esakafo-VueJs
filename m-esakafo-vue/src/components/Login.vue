@@ -30,10 +30,8 @@ export default {
 
 
         if (userCredential.user.uid === 'ejQ0HUOcOQdrETBy6k3ZmhI0tOu1') {  
-          console.log("Redirection vers /ingredient");  
-          router.push('/ingredient');  
+          router.push('/acceuil/dashboard');  
         } else {  
-          console.log("Redirection vers / pour les utilisateurs non admin");  
           router.push('/');  
         }  
 
@@ -67,7 +65,7 @@ export default {
 .form-container {
   background-color: rgba(255, 255, 255, 0.8);
   padding: 40px;  /* Augmenter le padding pour plus d'espace à l'intérieur */
-  margin-top: 150px;  /* Réduire la marge pour centrer plus haut sur la page */
+  margin-top: 210px;  /* Réduire la marge pour centrer plus haut sur la page */
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   width: 400px;  /* Augmenter la largeur du formulaire */
@@ -85,7 +83,7 @@ input {
 button {
   width: 100%;
   padding: 15px;  /* Augmenter la taille du bouton */
-  background-color: #300E66;
+  background-color: #f19203;
   color: white;
   border: none;
   border-radius: 4px;
