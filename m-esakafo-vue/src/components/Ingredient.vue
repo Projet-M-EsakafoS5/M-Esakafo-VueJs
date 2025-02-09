@@ -73,7 +73,7 @@ export default {
 
 <style scoped>
 h1{
-    color: #6a4c9c;
+    color: #640142;
 }
 .ingredients-container {
   display: flex;
@@ -94,7 +94,7 @@ h1{
 .ingredient-card {
   background-color: #f9f9f9;
   border-radius: 10px;
-  color: #6a4c9c;
+  color: #640142;
   padding: 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   text-align: center;
@@ -110,7 +110,7 @@ h1{
 .ingredient-description {
   margin-top: 10px;
   font-size: 14px;
-  color: #6a4c9c;
+  color: #640142;
 }
 
 .error, .loading {
