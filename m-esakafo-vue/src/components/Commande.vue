@@ -45,7 +45,7 @@ export default {
     // Récupération des commandes terminées
     const fetchCommandesTerminees = async () => {
       try {
-        const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/commandes/status/1`);
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/commandes/status/3`);
         commandesTerminees.value = response.data.data.commandes;
       } catch (err) {
         console.error("Erreur commandes terminées", err);
@@ -104,7 +104,7 @@ export default {
     <h1>Commandes en cours</h1>
     <div class="commandes-container">
       <div class="commande-card" v-for="commande in commandesEnCours" :key="commande.id">
-        <img :src="`/src/img/${commande.plat.sprite}`" alt="Plat" />
+        <img :src="`/img/${commande.plat.sprite}`" alt="Plat" />
         <p class="nom">{{ commande.plat.nom }}</p>
         <p class="qtt"><b>Quantité:</b> {{ commande.quantite }}</p>
         <p class="prix"><b>Prix:</b> {{ commande.plat.prix }} €</p>
@@ -115,7 +115,7 @@ export default {
     <h1>Commandes Terminées</h1>
     <div class="commandes-container">
       <div class="commande-card" v-for="commande in commandesTerminees" :key="commande.id">
-        <img :src="`/src/img/${commande.plat.sprite}`" alt="Plat" />
+        <img :src="`/img/${commande.plat.sprite}`" alt="Plat" />
         <p class="nom">{{ commande.plat.nom }}</p>
         <p class="qtt"><b>Quantité:</b> {{ commande.quantite }}</p>
         <p class="prix"><b>Prix:</b> {{ commande.plat.prix }} €</p>
@@ -132,7 +132,8 @@ export default {
 }
 
 h1, h2 {
-  color: #6a4c9c;
+  font-weight: bold;
+  color: #640142;
 }
 
 .error {
@@ -160,13 +161,13 @@ h1, h2 {
 .commande-card {
   background: white;
     padding: 15px;
-    /* color: #6a4c9c; */
-    background-color: #702082;
+    /* color: #640142; */
+    background-color: #640142;
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     height: 250px;
     width: 200px;
-    border: 2px solid #6a4c9c;
+    border: 2px solid #640142;
     align-items: center;
     text-align: center;
   }
