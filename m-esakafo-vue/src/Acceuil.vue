@@ -9,8 +9,9 @@
         <ul>
           <li><router-link to="/acceuil/dashboard">Dashboard</router-link></li>
           <li><router-link to="/acceuil/commande">Commandes</router-link></li>
-          <li><router-link to="/acceuil/mouvement">Mouvement</router-link></li>
+          <li><router-link to="/acceuil/mouvement">Mouvement Stock</router-link></li>
           <li><router-link to="/acceuil/plats">Plats / Recette</router-link></li>
+          <li><router-link to="/acceuil/clients">Nos Clients</router-link></li>
         </ul>
       </div>
   
