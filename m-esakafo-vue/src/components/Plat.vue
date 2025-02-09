@@ -5,11 +5,11 @@ import axios from 'axios';
 export default {
   name: 'Plats',
   setup() {
-    const plats = ref([]);  // Tableau pour stocker les plats extraits
-    const recette = ref(null);  // Recette du plat sélectionné
-    const error = ref(null);  // Pour gérer les erreurs
-    const isLoading = ref(false);  // Pour gérer l'état de chargement
-    const isModalVisible = ref(false);  // Pour gérer l'affichage de la fenêtre modale
+    const plats = ref([]);
+    const recette = ref(null);
+    const error = ref(null);
+    const isLoading = ref(false);
+    const isModalVisible = ref(false);
 
     const fetchPlats = async () => {
       isLoading.value = true;
@@ -27,9 +27,9 @@ export default {
         }
 
         plats.value = response.data.data;
-        isLoading.value = false;
       } catch (err) {
         error.value = err.message || 'Une erreur est survenue';
+      } finally {
         isLoading.value = false;
       }
     };
@@ -45,8 +45,8 @@ export default {
         });
 
         if (response.status === 200) {
-          recette.value = response.data;
-          isModalVisible.value = true;  // Affiche la fenêtre modale
+          recette.value = response.data[0];
+          isModalVisible.value = true;
         }
       } catch (err) {
         error.value = err.message || 'Une erreur est survenue';
@@ -54,8 +54,8 @@ export default {
     };
 
     const closeModal = () => {
-      isModalVisible.value = false;  // Ferme la fenêtre modale
-      recette.value = null;  // Réinitialise la recette
+      isModalVisible.value = false;
+      recette.value = null;
     };
 
     onMounted(() => {
@@ -77,22 +77,21 @@ export default {
 
 <template>
   <h1>Voici la liste des plats</h1>
-  <h2>Cliquez sur chaque plats pour voir leurs recettes</h2>
 
   <div class="plats-container">
     <div v-if="error" class="error">{{ error }}</div>
     <div v-if="isLoading" class="loading">Chargement...</div>
 
-    <!-- Conteneur des plats -->
     <div v-else class="plats-grid">
-      <div v-for="(plat, index) in plats" :key="plat.id" class="plat-card" @click="fetchRecette(plat.id)">
+      <div v-for="plat in plats" :key="plat.id" class="plat-card">
         <div class="plat-image">
-          <img v-bind:src="`/img/${plat.sprite}`" alt="Image du plat" />
+          <img :src="`/img/${plat.sprite}`" alt="Image du plat" />
         </div>
         <div class="plat-details">
           <h3>{{ plat.nom }}</h3>
           <p>Prix : {{ plat.prix }}€</p>
           <p>Temps de Cuisson : {{ plat.tempsCuisson }} min</p>
+          <button @click="fetchRecette(plat.id)" class="recette-button">Voir Recette</button>
         </div>
       </div>
     </div>
@@ -101,10 +100,10 @@ export default {
   <div v-if="isModalVisible" class="modal">
     <div class="modal-content">
       <span class="close" @click="closeModal">&times;</span>
-      <h2>Recette de {{ recette?.plat?.nom }}</h2>
-      <div v-for="ingredient in recette" :key="ingredient.id" class="ingredient">
-        <p>{{ ingredient.ingredient.nom }} - {{ ingredient.quantite }} {{ ingredient.ingredient.unite.nom }}</p>
-        <img v-bind:src="`/img/${ingredient.ingredient.sprite}`" alt="Image ingrédient" width="50" height="50"/>
+      <h2>Recette de {{ recette?.platNom }}</h2>
+      <div v-for="ingredient in recette?.ingredients" :key="ingredient.id" class="ingredient">
+        <p>{{ ingredient.nom }} - {{ ingredient.quantite }} {{ ingredient.unite.nom }}</p>
+        <img :src="`/img/${ingredient.sprite}`" alt="Image ingrédient" width="50" height="50"/>
       </div>
     </div>
   </div>
@@ -138,7 +137,6 @@ h2 {
   margin-bottom: 20px;
 }
 
-/* Conteneur de la grille des plats */
 .plats-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -221,5 +219,19 @@ h2 {
   .plats-grid {
     grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
   }
+}
+
+.recette-button {
+  background-color:rgb(228, 146, 4);
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  cursor: pointer;
+  margin-top: 10px;
+  border-radius: 5px;
+}
+
+.recette-button:hover {
+  background-color: #e64a19;
 }
 </style>
