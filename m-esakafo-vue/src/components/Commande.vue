@@ -30,7 +30,7 @@ export default {
         isLoading.value = false;
       }
     };
-    
+
     // Récupération des commandes en attente
     const fetchCommandesEnCours = async () => {
     try {
@@ -103,6 +103,7 @@ export default {
     <!-- Commandes en cours -->
     <h1>Commandes en cours</h1>
     <div class="commandes-container">
+      <div v-if="commandesEnCours.length === 0" class="no-commandes">Pas de commande en cours</div>
       <div class="commande-card" v-for="commande in commandesEnCours" :key="commande.id">
         <img :src="`/img/${commande.plat.sprite}`" alt="Plat" />
         <p class="nom">{{ commande.plat.nom }}</p>
@@ -114,6 +115,7 @@ export default {
     <!-- Commandes terminées -->
     <h1>Commandes Terminées</h1>
     <div class="commandes-container">
+      <div v-if="commandesTerminees.length === 0" class="no-commandes">Aucune de commande terminés pour l'instant</div>
       <div class="commande-card" v-for="commande in commandesTerminees" :key="commande.id">
         <img :src="`/img/${commande.plat.sprite}`" alt="Plat" />
         <p class="nom">{{ commande.plat.nom }}</p>
@@ -125,6 +127,14 @@ export default {
 </template>
 
 <style scoped>
+.no-commandes {
+  text-align: center;
+  font-size: 18px;
+  color: #ff8200;
+  font-weight: bold;
+  margin-top: 20px;
+}
+
 .container {
   max-width: 900px;
   margin: auto;
