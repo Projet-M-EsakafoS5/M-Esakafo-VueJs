@@ -104,8 +104,8 @@ export default {
             {
               label: "Nombre de Commandes par Mois",
               data: Object.values(commandesParDate),
-              backgroundColor: "rgba(106, 76, 156, 0.7)",
-              borderColor: "#6a4c9c",
+              backgroundColor: "#640142",
+              borderColor: "#640142",
               borderWidth: 1,
             },
           ],
@@ -156,7 +156,12 @@ export default {
 
 h1 {
   text-align: center;
-  color: #6a4c9c;
+  font-weight: bold;
+  color: #640142;
+}
+h2 {
+  text-align: center;
+  color: #640142;
 }
 
 .stats-container {
@@ -170,12 +175,12 @@ h1 {
 .stat-card {
   background: white;
   padding: 15px;
-  color: #6a4c9c;
+  color: #640142;
   border-radius: 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   width: 220px;
   text-align: center;
-  border: 2px solid #6a4c9c;
+  border: 2px solid #640142;
 }
 
 .chart-container {
