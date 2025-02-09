@@ -9,7 +9,6 @@ export default {
     const error = ref(null);
     const isLoading = ref(false);
 
-    // Fonction pour récupérer les commandes et les grouper par userId
     const fetchClients = async () => {
       isLoading.value = true;
       try {
@@ -26,7 +25,6 @@ export default {
             return acc;
           }, {});
 
-          // Convertir l'objet en tableau
           clients.value = Object.values(clientsData);
         } else {
           throw new Error(`Erreur ${response.status}: ${response.statusText}`);
@@ -38,7 +36,6 @@ export default {
       }
     };
 
-    // Appel de la fonction fetchClients au montage du composant
     onMounted(() => {
       fetchClients();
     });
