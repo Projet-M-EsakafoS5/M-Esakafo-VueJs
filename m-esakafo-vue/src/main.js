@@ -1,4 +1,4 @@
-import { createApp, ref } from 'vue';  
+import { createApp, ref, watchEffect, h } from 'vue';  
 import App from './App.vue';  
 import Login from './components/Login.vue';  
 import { auth, onAuthStateChanged } from './firebase';  
@@ -9,45 +9,29 @@ import Ingredient from './components/Ingredient.vue';
 import Mouvement from './components/Mouvement.vue';
 
 const isAuthenticated = ref(false);  
-const isAdmin = ref(false);  
+const isAdmin = ref(false); // Ajoutez une variable pour vérifier si l'utilisateur est admin  
 
+// Vérifie si l'utilisateur est connecté  
 onAuthStateChanged(auth, (user) => {  
   isAuthenticated.value = !!user;  
-  isAdmin.value = user && user.uid === 'ejQ0HUOcOQdrETBy6k3ZmhI0tOu1';
+  isAdmin.value = user && user.uid === 'ejQ0HUOcOQdrETBy6k3ZmhI0tOu1'; // Vérifiez si c'est un admin  
 });  
 
-// Définir les routes
-const routes = [  
-  { path: '/', component: Login },  
-  { 
-    path: '/ingredient', 
-    component: Ingredient, 
-    beforeEnter: (to, from, next) => {
-      if (!isAuthenticated.value) {
-        next('/');
-      } else {
-        next();
-      }
-    } 
-  },  
-  { 
-    path: '/mouvement', 
-    component: Mouvement, 
-    beforeEnter: (to, from, next) => {
-      if (!isAuthenticated.value) {
-        next('/');
-      } else {
-        next();
-      }
-    } 
-  }
-];  
-
+// Créer le router  
 const router = createRouter({  
   history: createWebHistory(),  
-  routes,  
+  routes: [  
+    { path: '/', component: Login },  
+    { path: '/ingredient', component: Mouvement },  
+  ],  
 });  
 
+
+// Créer et monter l'application  
 const app = createApp(App);  
+
+// Utilisez le router  
 app.use(router);  
-app.mount('#app');  
+
+// Montée de l'application  
+app.mount('#app');

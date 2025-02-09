@@ -1,12 +1,12 @@
 <template>
   <div id="app">
-    <div class="sidebar">
+    <!-- <div class="sidebar">
       <ul>
         <li><router-link to="/ingredient">Ingredients</router-link></li>
         <li><router-link to="/mouvement">Mouvement</router-link></li>
         <li><router-link to="/commandes">Commandes</router-link></li>
       </ul>
-    </div>
+    </div> -->
     <div class="content">
       <router-view></router-view>
     </div>
