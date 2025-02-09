@@ -1,37 +1,55 @@
-import { createApp, ref, watchEffect, h } from 'vue';  
+import { createApp, ref } from 'vue';  
 import App from './App.vue';  
 import Login from './components/Login.vue';  
+import Acceuil from './Acceuil.vue';
+import 'font-awesome/css/font-awesome.css';
+
 import { auth, onAuthStateChanged } from './firebase';  
 import './assets/main.css';  
 
 import { createRouter, createWebHistory } from 'vue-router';  
 import Ingredient from './components/Ingredient.vue';  
 import Mouvement from './components/Mouvement.vue';
+import Dashboard from './components/Dashboard.vue';
+import Commande from './components/Commande.vue';
+import Plat from './components/Plat.vue';
+
 
 const isAuthenticated = ref(false);  
-const isAdmin = ref(false); // Ajoutez une variable pour vérifier si l'utilisateur est admin  
+const isAdmin = ref(false);  
 
-// Vérifie si l'utilisateur est connecté  
 onAuthStateChanged(auth, (user) => {  
   isAuthenticated.value = !!user;  
-  isAdmin.value = user && user.uid === 'ejQ0HUOcOQdrETBy6k3ZmhI0tOu1'; // Vérifiez si c'est un admin  
+  isAdmin.value = user && user.uid === 'ejQ0HUOcOQdrETBy6k3ZmhI0tOu1';
 });  
 
-// Créer le router  
+const routes = [  
+  { path: '/', component: Login },  
+  { 
+    path: '/acceuil', 
+    component: Acceuil, 
+    beforeEnter: (to, from, next) => {
+      if (!isAuthenticated.value) {
+        next('/');
+      } else {
+        next();
+      }
+    }, 
+    children: [
+      { path: 'ingredient', component: Ingredient },
+      { path: 'commande', component: Commande },
+      { path: 'plats', component: Plat },
+      { path: 'mouvement', component: Mouvement },
+      { path: 'dashboard', component: Dashboard },
+    ]
+  }
+];  
+
 const router = createRouter({  
   history: createWebHistory(),  
-  routes: [  
-    { path: '/', component: Login },  
-    { path: '/ingredient', component: Mouvement },  
-  ],  
+  routes,  
 });  
 
-
-// Créer et monter l'application  
 const app = createApp(App);  
-
-// Utilisez le router  
 app.use(router);  
-
-// Montée de l'application  
-app.mount('#app');
+app.mount('#app');  
