@@ -13,6 +13,8 @@ import Mouvement from './components/Mouvement.vue';
 import Dashboard from './components/Dashboard.vue';
 import Commande from './components/Commande.vue';
 import Plat from './components/Plat.vue';
+import Clients from './components/Clients.vue';
+
 
 
 const isAuthenticated = ref(false);  
@@ -41,6 +43,7 @@ const routes = [
       { path: 'plats', component: Plat },
       { path: 'mouvement', component: Mouvement },
       { path: 'dashboard', component: Dashboard },
+      { path: 'clients', component: Clients }
     ]
   }
 ];  
